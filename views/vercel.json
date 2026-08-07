@@ -1,0 +1,19 @@
+// vercel.json - Cấu hình deploy trên Vercel
+{
+  "version": 2, // Phiên bản cấu hình Vercel
+  "builds": [1
+    {
+      "src": "app.js", // File chính cần build
+      "use": "@vercel/node" // Sử dụng runtime Node.js
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)", // Tất cả các route
+      "dest": "app.js" // Đều chuyển đến app.js xử lý
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production" // Môi trường production khi deploy
+  }
+}

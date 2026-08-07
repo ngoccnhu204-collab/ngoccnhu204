@@ -1,0 +1,122 @@
+<<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dữ liệu khí hậu - Climate Smart City</title>
+
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+    <!-- Thanh menu -->
+    <nav class="navbar">
+        <div class="nav-container">
+
+            <div class="nav-brand">
+                🌍 Climate Smart City
+            </div>
+
+            <ul class="nav-menu">
+                <li><a href="/dashboard" class="nav-link">Dashboard</a></li>
+                <li><a href="/climate" class="nav-link active">Dữ liệu khí hậu</a></li>
+                <li><a href="/hsng" class="nav-link">Hạ tầng xanh</a></li>
+                <li><a href="/logout" class="nav-link">Đăng xuất</a></li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <h1>🌦️ Dữ liệu khí hậu</h1>
+
+        <p>Quản lý các chỉ số khí hậu trong hệ thống Climate Smart City.</p>
+
+        <div class="monitor-layout">
+
+            <!-- Bộ lọc -->
+            <div class="filter-box">
+
+                <h3>🔎 Bộ lọc dữ liệu</h3>
+
+                <select>
+                    <option>Tất cả khu vực</option>
+                    <option>Trung tâm</option>
+                    <option>Phía Bắc</option>
+                    <option>Phía Nam</option>
+                </select>
+
+                <select>
+                    <option>Tất cả dữ liệu</option>
+                    <option>Nhiệt độ</option>
+                    <option>Độ ẩm</option>
+                    <option>Lượng mưa</option>
+                    <option>Tốc độ gió</option>
+                </select>
+
+                <input type="date">
+                <input type="date">
+
+                <button class="btn">
+                    Lọc dữ liệu
+                </button>
+
+            </div>
+
+            <!-- Bảng dữ liệu -->
+            <div class="card">
+
+                <h3>📊 Dữ liệu khí hậu</h3>
+
+                <table class="climate-table">
+
+                    <thead>
+                        <tr>
+                            <th>Mã trạm</th>
+                            <th>Khu vực</th>
+                            <th>Nhiệt độ</th>
+                            <th>Độ ẩm</th>
+                            <th>Lượng mưa</th>
+                            <th>Tốc độ gió</th>
+                            <th>AQI</th>
+                            <th>Trạng thái</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <% climateData.forEach(item => { %>
+
+                        <tr>
+                            <td><%= item.id %></td>
+                            <td><%= item.area %></td>
+                            <td><%= item.temp %> °C</td>
+                            <td><%= item.humidity %>%</td>
+                            <td><%= item.rain %> mm</td>
+                            <td><%= item.wind %> m/s</td>
+                            <td><%= item.aqi %></td>
+
+                            <td>
+                                <span class="badge <%= item.status === 'Tốt' ? 'good' : 'moderate' %>">
+                                    <%= item.status %>
+                                </span>
+                            </td>
+
+                        </tr>
+
+                        <% }); %>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

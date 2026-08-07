@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Climate Smart City - WebGIS</title>
+
+
+    <!-- CSS của mình -->
+    <link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Leaflet CSS (bản đồ) -->
+    <link rel="stylesheet" 
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+
+    <!-- Chart.js (biểu đồ) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Thanh menu -->
+    <<nav class="navbar">
+<div class="nav-brand">
+    <span>🌍</span>
+    Climate Smart City
+</div>
+        <ul class="nav-menu">
+
+            <li class="nav-item">
+                <a href="/dashboard" class="nav-link active">Dashboard</a>
+            </li>
+
+            <li class="nav-item">
+                <a href="/map" class="nav-link">Bản đồ</a>
+            </li>
+
+            <li class="nav-item">
+                <a href="/climate" class="nav-link">Dữ liệu khí hậu</a>
+            </li>
+
+            <li class="nav-item">
+                <a href="/hsng" class="nav-link">Hạ tầng xanh</a>
+            </li>
+
+            <li class="nav-item">
+                <a href="/statistic" class="nav-link">Thống kê</a>
+            </li>
+
+            <li class="nav-item">
+                <a href="/about" class="nav-link">Giới thiệu</a>
+            </li>
+
+            <li class="nav-item">
+                <a href="/logout" class="nav-link">Đăng xuất</a>
+            </li>
+
+        </ul>
+
+    </div>
+
+</nav>
+
+</head>
+
+<body>
+
+   
+    <div class="container">
+
+        <h1>Climate Smart City Dashboard</h1>
+
+        <p>Hệ thống WebGIS quản lý Climate Smart City.</p>
+
+        <!-- 4 Card -->
+        <div class="dashboard-grid">
+
+            <div class="card">
+                <h3>🌡️ Nhiệt độ</h3>
+                <h2>26.5°C</h2>
+                <p>Nhiệt độ trung bình</p>
+            </div>
+
+            <div class="card">
+                <h3>🌧️ Lượng mưa</h3>
+                <h2>180 mm</h2>
+                <p>Hôm nay</p>
+            </div>
+
+            <div class="card">
+                <h3>💧 Độ ẩm</h3>
+                <h2>72%</h2>
+                <p>Độ ẩm không khí</p>
+            </div>
+
+            <div class="card">
+                <h3>🌬️ Tốc độ gió</h3>
+                <h2>3.5 m/s</h2>
+                <p>Gió trung bình</p>
+            </div>
+            <div class="card">
+    <h3>🌳 Cây xanh đô thị</h3>
+    <h2>12,450</h2>
+    <p>Số lượng cây xanh</p>
+</div>
+<div class="stat-change">+230 cây mới</div>
+        </div>
+
+        </div>
+
+        <div class="content-grid">
+
+    <!-- Bản đồ -->
+    <div class="box">
+
+        <h2>🗺️ Bản đồ Climate Smart City</h2>
+
+        <!-- Các nút điều khiển -->
+        <div class="map-controls">
+
+            <button class="btn" onclick="toggleLayer('temperature')">
+                🌡️ Nhiệt độ
+            </button>
+
+            <button class="btn" onclick="toggleLayer('humidity')">
+                💧 Độ ẩm
+            </button>
+
+            <button class="btn" onclick="toggleLayer('green')">
+                🌳 Cây xanh
+            </button>
+
+        </div>
+    <script>
+
+function toggleLayer(type){
+
+    if(type==="temperature"){
+        alert("Đang hiển thị lớp Nhiệt độ");
+    }
+
+    if(type==="humidity"){
+        alert("Đang hiển thị lớp Độ ẩm");
+    }
+
+    if(type==="green"){
+        alert("Đang hiển thị lớp Cây xanh");
+    }
+
+}
+</script>
+</script>
+
+        <!-- Bản đồ -->
+        <div id="map"></div>
+
+    </div>
+
+    <!-- Biểu đồ -->
+    <div class="box">
+
+        <h2>📈 Thống kê lượng mưa</h2>
+
+        <canvas id="rainChart"></canvas>
+
+    </div>
+
+</div>
+
+<script src="/js/dashboard.js"></script>
+<!-- DỮ LIỆU KHÍ HẬU MỚI NHẤT -->
+<!-- ========================= -->
+
+<div class="card full-width">
+
+    <h3>📋 Dữ liệu khí hậu mới nhất</h3>
+
+    <table class="climate-table">
+
+        <thead>
+
+            <tr>
+                <th>Mã trạm</th>
+                <th>Khu vực</th>
+                <th>Nhiệt độ (°C)</th>
+                <th>Độ ẩm (%)</th>
+                <th>Lượng mưa (mm)</th>
+                <th>Tốc độ gió (m/s)</th>
+                <th>AQI</th>
+                <th>Trạng thái</th>
+                <th>Ngày cập nhật</th>
+            </tr>
+
+        </thead>
+
+        <tbody id="climate-data">
+
+            <tr>
+                <td>CS01</td>
+                <td>Trung tâm</td>
+                <td>28.5</td>
+                <td>65</td>
+                <td>120</td>
+                <td>3.5</td>
+                <td>42</td>
+                <td><span class="badge good">Tốt</span></td>
+                <td>06/08/2026</td>
+            </tr>
+
+            <tr>
+                <td>CS02</td>
+                <td>Phía Bắc</td>
+                <td>26.2</td>
+                <td>72</td>
+                <td>150</td>
+                <td>2.8</td>
+                <td>38</td>
+                <td><span class="badge good">Tốt</span></td>
+                <td>06/08/2026</td>
+            </tr>
+
+            <tr>
+                <td>CS03</td>
+                <td>Phía Nam</td>
+                <td>29.8</td>
+                <td>58</td>
+                <td>90</td>
+                <td>4.1</td>
+                <td>56</td>
+                <td><span class="badge moderate">Trung bình</span></td>
+                <td>06/08/2026</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<!-- ========================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================= -->
+
+<script>
