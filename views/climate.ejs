@@ -1,112 +1,392 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dữ liệu khí hậu - Climate Smart City</title>
 
-    <link rel="stylesheet" href="/style.css">
+    <title>Dữ liệu ngập - WebGIS quản lý ngập lụt TP.HCM</title>
+
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
 
-    <!-- Thanh menu -->
-    <nav class="navbar">
-        <div class="nav-container">
+<div class="webgis">
 
-            <div class="nav-brand">
-                🌍 Climate Smart City
-            </div>
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
 
-            <ul class="nav-menu">
-                <li><a href="/dashboard" class="nav-link">Dashboard</a></li>
-                <li><a href="/climate" class="nav-link active">Dữ liệu khí hậu</a></li>
-                <li><a href="/hsng" class="nav-link">Hạ tầng xanh</a></li>
-                <li><a href="/logout" class="nav-link">Đăng xuất</a></li>
-            </ul>
+    <aside class="sidebar">
+
+        <div class="logo">
+            🌊
+            <span>WebGIS</span>
+        </div>
+
+        <div class="search-box">
+            🔎
+            <input
+                type="text"
+                placeholder="Tìm kiếm..."
+            >
+        </div>
+
+        <div class="sidebar-menu">
+
+            <a href="/map" class="menu-item">
+                🗺️ Bản đồ
+            </a>
+
+            <a href="/climate" class="menu-item active">
+                🌧️ Dữ liệu ngập
+            </a>
+
+            <a href="/warning" class="menu-item">
+                ⚠️ Cảnh báo
+            </a>
+
+            <a href="/statistics" class="menu-item">
+                📊 Thống kê
+            </a>
+
+            <a href="/forecast" class="menu-item">
+                🌊 Dự báo ngập
+            </a>
 
         </div>
-    </nav>
 
-    <div class="container">
+        <div class="sidebar-bottom">
 
-        <h1>🌦️ Dữ liệu khí hậu</h1>
+            <a href="/dashboard">
+                🏠 Trang chủ
+            </a>
 
-        <p>Quản lý các chỉ số khí hậu trong hệ thống Climate Smart City.</p>
+            <a href="/logout">
+                🚪 Đăng xuất
+            </a>
 
-        <div class="monitor-layout">
+        </div>
 
-            <!-- Bộ lọc -->
-            <div class="filter-box">
+    </aside>
 
-                <h3>🔎 Bộ lọc dữ liệu</h3>
 
-                <select>
-                    <option>Tất cả khu vực</option>
-                    <option>Trung tâm</option>
-                    <option>Phía Bắc</option>
-                    <option>Phía Nam</option>
-                </select>
+    <!-- =========================
+         NỘI DUNG
+    ========================== -->
 
-                <select>
-                    <option>Tất cả dữ liệu</option>
-                    <option>Nhiệt độ</option>
-                    <option>Độ ẩm</option>
-                    <option>Lượng mưa</option>
-                    <option>Tốc độ gió</option>
-                </select>
+    <main class="data-content">
 
-                <input type="date">
-                <input type="date">
+        <!-- TIÊU ĐỀ -->
 
-                <button class="btn">
-                    Lọc dữ liệu
+        <div class="page-header">
+
+            <h1>
+                🌧️ DỮ LIỆU NGẬP LỤT
+            </h1>
+
+            <p>
+                Quản lý và tra cứu thông tin các điểm ngập tại TP. Hồ Chí Minh
+            </p>
+
+        </div>
+
+
+        <!-- =========================
+             BỘ LỌC
+        ========================== -->
+
+        <div class="filter-card">
+
+            <div class="filter-title">
+                🔎 BỘ LỌC DỮ LIỆU
+            </div>
+
+            <div class="filter-body">
+
+                <div class="filter-group">
+
+                    <label>Mã điểm ngập</label>
+
+                    <select>
+                        <option>Tất cả điểm</option>
+                    </select>
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label>Khu vực</label>
+
+                    <select>
+
+                        <option>Tất cả khu vực</option>
+
+                        <option>TP. Thủ Đức</option>
+
+                        <option>Quận 1</option>
+
+                        <option>Quận 3</option>
+
+                        <option>Quận 5</option>
+
+                        <option>Quận 7</option>
+
+                        <option>Quận 8</option>
+
+                        <option>Quận 12</option>
+
+                        <option>Bình Thạnh</option>
+
+                        <option>Gò Vấp</option>
+
+                        <option>Tân Bình</option>
+
+                        <option>Tân Phú</option>
+
+                        <option>Bình Tân</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label>Mức độ ngập</label>
+
+                    <select>
+
+                        <option>Tất cả mức độ</option>
+
+                        <option>Ngập nhẹ</option>
+
+                        <option>Ngập trung bình</option>
+
+                        <option>Ngập cao</option>
+
+                        <option>Ngập nghiêm trọng</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label>Từ ngày</label>
+
+                    <input type="date">
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label>Đến ngày</label>
+
+                    <input type="date">
+
+                </div>
+
+            </div>
+
+
+            <div class="filter-buttons">
+
+                <button class="btn-primary">
+                    🔎 Lọc dữ liệu
+                </button>
+
+                <button class="btn-reset">
+                    ↻ Đặt lại
                 </button>
 
             </div>
 
-            <!-- Bảng dữ liệu -->
-            <div class="card">
+        </div>
 
-                <h3>📊 Dữ liệu khí hậu</h3>
 
-                <table class="climate-table">
+        <!-- =========================
+             THỐNG KÊ NHANH
+        ========================== -->
+
+        <div class="quick-stats">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🌊
+                </div>
+
+                <div>
+
+                    <div class="stat-title">
+                        Điểm ngập
+                    </div>
+
+                    <div class="stat-value">
+                        --
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📏
+                </div>
+
+                <div>
+
+                    <div class="stat-title">
+                        Độ sâu trung bình
+                    </div>
+
+                    <div class="stat-value">
+                        -- m
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ⚠️
+                </div>
+
+                <div>
+
+                    <div class="stat-title">
+                        Ngập nghiêm trọng
+                    </div>
+
+                    <div class="stat-value">
+                        --
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🕒
+                </div>
+
+                <div>
+
+                    <div class="stat-title">
+                        Cập nhật gần nhất
+                    </div>
+
+                    <div class="stat-value">
+                        --
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             BẢNG DỮ LIỆU
+        ========================== -->
+
+        <div class="data-card">
+
+            <div class="data-card-header">
+
+                <div>
+
+                    <h2>
+                        🌧️ Danh sách điểm ngập
+                    </h2>
+
+                    <p>
+                        Thông tin các điểm ngập được quản lý trong hệ thống
+                    </p>
+
+                </div>
+
+                <button class="add-button">
+                    ＋ Thêm điểm ngập
+                </button>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table class="flood-table">
 
                     <thead>
+
                         <tr>
-                            <th>Mã trạm</th>
+
+                            <th>STT</th>
+
+                            <th>Mã điểm</th>
+
                             <th>Khu vực</th>
-                            <th>Nhiệt độ</th>
-                            <th>Độ ẩm</th>
-                            <th>Lượng mưa</th>
-                            <th>Tốc độ gió</th>
-                            <th>AQI</th>
+
+                            <th>Vị trí</th>
+
+                            <th>Độ sâu ngập</th>
+
+                            <th>Mức độ</th>
+
+                            <th>Thời gian</th>
+
                             <th>Trạng thái</th>
+
+                            <th>Thao tác</th>
+
                         </tr>
+
                     </thead>
+
 
                     <tbody>
 
-                        <% climateData.forEach(item => { %>
+                        <!-- CHƯA CÓ DỮ LIỆU -->
 
                         <tr>
-                            <td><%= item.id %></td>
-                            <td><%= item.area %></td>
-                            <td><%= item.temp %> °C</td>
-                            <td><%= item.humidity %>%</td>
-                            <td><%= item.rain %> mm</td>
-                            <td><%= item.wind %> m/s</td>
-                            <td><%= item.aqi %></td>
 
-                            <td>
-                                <span class="badge <%= item.status === 'Tốt' ? 'good' : 'moderate' %>">
-                                    <%= item.status %>
-                                </span>
+                            <td colspan="9">
+
+                                <div class="empty-data">
+
+                                    <div class="empty-icon">
+                                        🌊
+                                    </div>
+
+                                    <h3>
+                                        Chưa có dữ liệu ngập
+                                    </h3>
+
+                                    <p>
+                                        Dữ liệu các điểm ngập sẽ được cập nhật
+                                        vào hệ thống sau.
+                                    </p>
+
+                                </div>
+
                             </td>
 
                         </tr>
-
-                        <% }); %>
 
                     </tbody>
 
@@ -116,7 +396,24 @@
 
         </div>
 
-    </div>
+
+        <!-- =========================
+             GHI CHÚ
+        ========================== -->
+
+        <div class="data-note">
+
+            <strong>📌 Ghi chú:</strong>
+
+            Dữ liệu trên trang được sử dụng để quản lý, tra cứu và cập nhật
+            thông tin các điểm ngập trên địa bàn TP. Hồ Chí Minh.
+
+        </div>
+
+    </main>
+
+</div>
 
 </body>
+
 </html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dự báo ngập - WebGIS</title>
+
+    <link rel="stylesheet"
+          href="/css/style.css">
+
+</head>
+
+
+<body>
+
+<div class="webgis">
+
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            🌊
+            <span>WebGIS</span>
+        </div>
+
+
+        <nav class="menu">
+
+            <a href="/"
+               class="menu-item">
+
+                🗺️
+                <span>Bản đồ</span>
+
+            </a>
+
+
+            <a href="/warning"
+               class="menu-item">
+
+                ⚠️
+                <span>Cảnh báo ngập</span>
+
+            </a>
+
+
+            <a href="/forecast"
+               class="menu-item active">
+
+                🌧️
+                <span>Dự báo ngập</span>
+
+            </a>
+
+
+            <a href="/statistics"
+               class="menu-item">
+
+                📊
+                <span>Thống kê</span>
+
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <div class="page-header">
+
+            <div>
+
+                <h1>🌧️ Dự báo ngập</h1>
+
+                <p>
+                    Theo dõi và tra cứu thông tin dự báo ngập
+                </p>
+
+            </div>
+
+
+            <div class="update-info">
+
+                🕒
+                <span>Chưa có dữ liệu cập nhật</span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             FILTER
+        ========================== -->
+
+        <section class="data-card forecast-filter">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>🔎 Điều kiện dự báo</h2>
+
+                    <p>
+                        Lựa chọn thời gian và khu vực cần xem
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="forecast-filter-grid">
+
+
+                <div class="filter-group">
+
+                    <label>
+                        Thời gian dự báo
+                    </label>
+
+                    <select>
+
+                        <option>
+                            Chưa có dữ liệu
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="filter-group">
+
+                    <label>
+                        Khu vực
+                    </label>
+
+                    <select>
+
+                        <option>
+                            Toàn thành phố
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <button class="forecast-btn">
+
+                    🔍
+                    Xem dự báo
+
+                </button>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             SUMMARY
+        ========================== -->
+
+        <section class="forecast-cards">
+
+
+            <div class="forecast-info-card">
+
+                <div class="forecast-card-icon">
+                    🌧️
+                </div>
+
+                <div>
+
+                    <p>Lượng mưa</p>
+
+                    <h2>--</h2>
+
+                    <span>
+                        Chưa có dữ liệu
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="forecast-info-card">
+
+                <div class="forecast-card-icon">
+                    🌊
+                </div>
+
+                <div>
+
+                    <p>Mực nước</p>
+
+                    <h2>--</h2>
+
+                    <span>
+                        Chưa có dữ liệu
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="forecast-info-card">
+
+                <div class="forecast-card-icon">
+                    📏
+                </div>
+
+                <div>
+
+                    <p>Độ sâu ngập</p>
+
+                    <h2>--</h2>
+
+                    <span>
+                        Chưa có dữ liệu
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="forecast-info-card">
+
+                <div class="forecast-card-icon">
+                    ⚠️
+                </div>
+
+                <div>
+
+                    <p>Mức độ nguy cơ</p>
+
+                    <h2>--</h2>
+
+                    <span>
+                        Chưa có dữ liệu
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================
+             MAP
+        ========================== -->
+
+        <section class="data-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>🗺️ Bản đồ dự báo ngập</h2>
+
+                    <p>
+                        Khu vực dự báo ngập sẽ được hiển thị trên bản đồ
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="forecast-map-empty">
+
+                <div class="forecast-empty-icon">
+                    🌊
+                </div>
+
+
+                <h3>
+                    Chưa có dữ liệu dự báo
+                </h3>
+
+
+                <p>
+                    Hiện chưa có dữ liệu để hiển thị
+                    bản đồ dự báo ngập.
+                </p>
+
+
+                <span>
+                    Dữ liệu sẽ được cập nhật khi có kết quả mô hình.
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             TABLE
+        ========================== -->
+
+        <section class="data-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>📋 Kết quả dự báo</h2>
+
+                    <p>
+                        Thông tin dự báo ngập theo khu vực
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="forecast-table-empty">
+
+                <div class="empty-icon">
+                    📊
+                </div>
+
+
+                <h3>
+                    Chưa có dữ liệu
+                </h3>
+
+
+                <p>
+                    Chưa có kết quả dự báo ngập
+                    để hiển thị.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             CHART
+        ========================== -->
+
+        <section class="data-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>📈 Diễn biến dự báo</h2>
+
+                    <p>
+                        Diễn biến ngập theo thời gian
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="forecast-chart-empty">
+
+                <div class="empty-icon">
+                    📈
+                </div>
+
+
+                <h3>
+                    Chưa có dữ liệu
+                </h3>
+
+
+                <p>
+                    Biểu đồ sẽ được hiển thị
+                    khi có dữ liệu dự báo.
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

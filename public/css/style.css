@@ -1,594 +1,1967 @@
-/* Reset */
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+.webgis {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    width: 235px;
+    height: 100vh;
+    flex: 0 0 235px;
+
+    background: #082536;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px;
+
+    z-index: 2000;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: 700;
+
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+.search-box {
+    background: #123d51;
+
+    border-radius: 10px;
+    padding: 12px;
+
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+
+    background: transparent;
+    color: white;
+
+    width: 100%;
+}
+
+.search-box input::placeholder {
+    color: #c8d8df;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menu-item {
+    text-decoration: none;
+    color: white;
+
+    padding: 14px;
+
+    border-radius: 10px;
+}
+
+.menu-item:hover,
+.menu-item.active {
+    background: white;
+    color: #0b4d68;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar-bottom a {
+    color: white;
+    text-decoration: none;
+}
+
+
+/* =========================
+   MAP CONTAINER
+========================= */
+
+.map-container {
+    position: relative;
+
+    flex: 1 1 auto;
+
+    width: calc(100vw - 235px);
+    height: 100vh;
+
+    min-width: 0;
+    min-height: 0;
+
+    overflow: hidden;
+}
+
+
+/* =========================
+   LEAFLET MAP
+========================= */
+
+#map {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 1;
+}
+
+.leaflet-container {
+    width: 100%;
+    height: 100%;
+
+    background: #ddd;
+}
+
+
+/* =========================
+   WEATHER CARD
+========================= */
+
+.weather-card {
+    position: absolute;
+
+    top: 20px;
+    right: 20px;
+
+    width: 280px;
+    max-width: calc(100% - 40px);
+
+    background: rgba(255, 255, 255, 0.92);
+
+    padding: 20px;
+
+    border-radius: 16px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+    z-index: 1000;
+}
+
+.weather-time {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.weather-card h2 {
+    margin: 8px 0;
+}
+
+.weather-temp {
+    font-size: 38px;
+    font-weight: bold;
+}
+
+.weather-info {
+    margin: 5px 0 15px;
+}
+
+.weather-details {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   LEGEND
+========================= */
+
+.legend {
+    position: absolute;
+
+    left: 20px;
+    top: 20px;
+
+    background: white;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    z-index: 1000;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.legend h4 {
+    margin-top: 0;
+}
+
+.legend div {
+    margin: 7px 0;
+    font-size: 14px;
+}
+
+.legend-color {
+    display: inline-block;
+
+    width: 18px;
+    height: 18px;
+
+    margin-right: 7px;
+
+    vertical-align: middle;
+
+    border-radius: 3px;
+}
+
+.light {
+    background: #ffff99;
+}
+
+.medium {
+    background: #ffd54f;
+}
+
+.high {
+    background: #ff8c00;
+}
+
+.severe {
+    background: #d32f2f;
+}
+
+
+/* =========================
+   MAP TOOLS
+========================= */
+
+.map-tools {
+    position: absolute;
+
+    left: 20px;
+    bottom: 120px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    z-index: 1000;
+}
+
+.map-tools button {
+    width: 42px;
+    height: 42px;
+
+    border: none;
+
+    background: white;
+
+    border-radius: 10px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    cursor: pointer;
+
+    font-size: 20px;
+}
+
+
+/* =========================
+   TIMELINE
+========================= */
+
+.timeline {
+    position: absolute;
+
+    bottom: 20px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 520px;
+    max-width: calc(100% - 40px);
+
+    background: rgba(255, 255, 255, 0.95);
+
+    padding: 15px 20px;
+
+    border-radius: 16px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+
+    z-index: 1000;
+}
+
+.timeline-controls {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 15px;
+}
+
+.timeline-controls button {
+    border: none;
+
+    background: #0b6d91;
+    color: white;
+
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+}
+
+.timeline-line {
+    margin-top: 12px;
+}
+
+.timeline-line input {
+    width: 100%;
+}
+
+.timeline-time {
+    text-align: center;
+
+    font-size: 13px;
+
+    color: #475569;
+
+    margin-top: 6px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .sidebar {
+        width: 190px;
+        flex-basis: 190px;
+        padding: 15px;
+    }
+
+    .map-container {
+        width: calc(100vw - 190px);
+    }
+
+    .weather-card {
+        width: 240px;
+        padding: 15px;
+    }
+
+    .weather-temp {
+        font-size: 32px;
+    }
+
+    .timeline {
+        width: 90%;
+    }
+}
+/* =========================================
+   TRANG DỮ LIỆU NGẬP
+========================================= */
+
+.data-content {
+    flex: 1;
+    height: 100vh;
+    overflow-y: auto;
+    background: #f4f7fa;
+    padding: 30px 35px;
+    color: #1e293b;
+}
+
+
+/* =========================================
+   TIÊU ĐỀ
+========================================= */
+
+.page-header {
+    margin-bottom: 25px;
+}
+
+.page-header h1 {
+    margin: 0 0 8px;
+    font-size: 30px;
+    color: #0b5fa5;
+    font-weight: 700;
+}
+
+.page-header p {
+    margin: 0;
+    color: #64748b;
+    font-size: 15px;
+}
+
+
+/* =========================================
+   BỘ LỌC
+========================================= */
+
+.filter-card {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+
+.filter-title {
+    background: #0b6d91;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 15px 20px;
+}
+
+.filter-body {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    padding: 20px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.filter-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.filter-group select,
+.filter-group input {
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    outline: none;
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+    border-color: #0b6d91;
+    box-shadow: 0 0 0 3px rgba(11, 109, 145, 0.12);
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    padding: 0 20px 20px;
+}
+
+.btn-primary,
+.btn-reset {
+    height: 42px;
+    padding: 0 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background: #0b6d91;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #095a78;
+}
+
+.btn-reset {
+    background: white;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+}
+
+.btn-reset:hover {
+    background: #f1f5f9;
+}
+
+
+/* =========================================
+   THỐNG KÊ NHANH
+========================================= */
+
+.quick-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: #e0f2fe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+}
+
+.stat-title {
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 23px;
+    font-weight: 700;
+    color: #0b5fa5;
+}
+
+
+/* =========================================
+   BẢNG DỮ LIỆU
+========================================= */
+
+.data-card {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.data-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 22px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.data-card-header h2 {
+    margin: 0 0 5px;
+    font-size: 20px;
+    color: #0b5fa5;
+}
+
+.data-card-header p {
+    margin: 0;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.add-button {
+    background: #0b6d91;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 11px 16px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.add-button:hover {
+    background: #095a78;
+}
+
+
+/* =========================================
+   TABLE
+========================================= */
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.flood-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+}
+
+.flood-table th {
+    background: #f1f5f9;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 14px 12px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.flood-table td {
+    padding: 15px 12px;
+    font-size: 13px;
+    color: #475569;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.flood-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+
+/* =========================================
+   CHƯA CÓ DỮ LIỆU
+========================================= */
+
+.empty-data {
+    text-align: center;
+    padding: 55px 20px;
+}
+
+.empty-icon {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+.empty-data h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    color: #334155;
+}
+
+.empty-data p {
+    margin: 0;
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+
+/* =========================================
+   GHI CHÚ
+========================================= */
+
+.data-note {
+    margin-top: 18px;
+    background: #e0f2fe;
+    border-left: 4px solid #0b6d91;
+    padding: 14px 18px;
+    border-radius: 8px;
+    color: #475569;
+    font-size: 13px;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1100px) {
+
+    .quick-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .filter-body {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+
+    .sidebar {
+        width: 190px;
+    }
+
+    .data-content {
+        padding: 20px;
+    }
+
+    .filter-body {
+        grid-template-columns: 1fr;
+    }
+
+    .quick-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .data-card-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+/* =========================================================
+   RESET
+========================================================= */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-
-/* Toàn bộ trang */
+html,
 body {
+    width: 100%;
+    height: 100%;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f4f7fb;
+    color: #1f2937;
+}
 
-    background: #f0f4f8;
+body {
+    overflow: hidden;
+}
 
-    padding: 0 20px 40px;
-
+button,
+input,
+select {
+    font-family: inherit;
 }
 
 
-/* Thanh menu */
-.navbar {
+/* =========================================================
+   MAIN WEBGIS LAYOUT
+========================================================= */
 
-    background: linear-gradient(135deg,#1a3a5c,#2d6a4f);
+.webgis {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
 
-    padding: 20px 40px;
 
-    border-radius: 0 0 20px 20px;
+/* =========================================================
+   SIDEBAR
+========================================================= */
 
-    display:flex;
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
 
-    justify-content:space-between;
+    display: flex;
+    flex-direction: column;
 
-    align-items:center;
-
+    flex-shrink: 0;
 }
 
 
 /* Logo */
+
 .logo {
+    height: 72px;
 
-    color:white;
+    display: flex;
+    align-items: center;
 
-    font-size:24px;
+    padding: 0 22px;
 
-    font-weight:bold;
+    border-bottom: 1px solid #e5e7eb;
 
+    font-size: 19px;
+    font-weight: 700;
+
+    color: #0f766e;
+}
+
+.logo span {
+    margin-left: 8px;
 }
 
 
+/* Navigation */
 
-/* Menu */
-.menu {
+.sidebar nav {
+    padding: 18px 12px;
+}
 
-    display:flex;
+.sidebar nav a {
+    display: flex;
+    align-items: center;
 
-    list-style:none;
+    width: 100%;
+    min-height: 46px;
 
-    gap:25px;
+    padding: 0 14px;
+    margin-bottom: 6px;
 
+    border-radius: 9px;
+
+    text-decoration: none;
+
+    color: #4b5563;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    transition: all 0.2s ease;
+}
+
+.sidebar nav a:hover {
+    background: #f0fdfa;
+    color: #0f766e;
+}
+
+.sidebar nav a.active {
+    background: #e6fffb;
+    color: #0f766e;
+    font-weight: 600;
+}
+
+.sidebar nav a i,
+.sidebar nav a span.icon {
+    width: 24px;
+    margin-right: 10px;
 }
 
 
-.menu li a {
+/* =========================================================
+   CONTENT
+========================================================= */
 
-    color:white;
+.main-content {
+    flex: 1;
+    min-width: 0;
+    height: 100vh;
 
-    text-decoration:none;
+    display: flex;
+    flex-direction: column;
 
-    font-weight:500;
-
-    padding:8px 15px;
-
-    border-radius:10px;
-
+    overflow: hidden;
 }
 
 
-.menu li a:hover {
+/* =========================================================
+   HEADER
+========================================================= */
 
-    background:rgba(255,255,255,0.2);
+.header {
+    height: 72px;
 
+    padding: 0 28px;
+
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    flex-shrink: 0;
+}
+
+.header-left h1 {
+    font-size: 21px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.header-left p {
+    margin-top: 3px;
+
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 
-/* Container chính */
+/* =========================================================
+   CONTENT AREA
+========================================================= */
 
-.container {
+.content {
+    flex: 1;
 
-    max-width:1400px;
+    padding: 24px 28px;
 
-    margin:auto;
-
-    padding-top:30px;
-
+    overflow-y: auto;
 }
 
 
-.container h1 {
+/* =========================================================
+   PAGE TITLE
+========================================================= */
 
-    color:#1a3a5c;
+.page-title {
+    margin-bottom: 20px;
+}
 
-    margin-bottom:10px;
+.page-title h2 {
+    font-size: 23px;
+    font-weight: 700;
+    color: #111827;
+}
 
+.page-title p {
+    margin-top: 5px;
+
+    font-size: 13px;
+    color: #6b7280;
 }
 
 
+/* =========================================================
+   STAT CARDS
+========================================================= */
 
-/* Card khí hậu */
+.stats-grid {
+    display: grid;
 
-.dashboard-grid {
+    grid-template-columns: repeat(4, 1fr);
 
-    display:grid;
+    gap: 16px;
 
-    grid-template-columns:repeat(5,1fr);
+    margin-bottom: 20px;
+}
 
-    gap:20px;
+.stat-card {
+    min-height: 125px;
 
-    margin-top:30px;
+    padding: 20px;
 
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+
+    box-shadow: 0 2px 7px rgba(15, 23, 42, 0.04);
+
+    transition: transform 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e6fffb;
+
+    font-size: 21px;
+
+    margin-right: 14px;
+}
+
+.stat-info {
+    min-width: 0;
+}
+
+.stat-info h3 {
+    font-size: 12px;
+    font-weight: 500;
+
+    color: #6b7280;
+
+    margin-bottom: 6px;
+}
+
+.stat-info .value {
+    font-size: 25px;
+    font-weight: 700;
+
+    color: #111827;
+}
+
+.stat-info .unit {
+    font-size: 12px;
+    color: #6b7280;
 }
 
 
+/* =========================================================
+   DATA CARD
+========================================================= */
 
-.card {
+.data-card {
+    background: #ffffff;
 
-    background:white;
+    border: 1px solid #e5e7eb;
 
-    padding:20px;
+    border-radius: 12px;
 
-    border-radius:16px;
+    padding: 20px;
 
-    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    min-height: 250px;
 
+    box-shadow: 0 2px 7px rgba(15, 23, 42, 0.04);
+}
+
+.data-card-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 16px;
+}
+
+.data-card-header h3 {
+    font-size: 16px;
+    font-weight: 650;
+
+    color: #111827;
+}
+
+.data-card-header p {
+    margin-top: 3px;
+
+    font-size: 12px;
+    color: #6b7280;
 }
 
 
-.card:hover {
+/* =========================================================
+   TABLE
+========================================================= */
 
-    transform:translateY(-5px);
+.table-wrapper {
+    width: 100%;
 
+    overflow-x: auto;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 9px;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    font-size: 13px;
+}
+
+thead {
+    background: #f8fafc;
+}
+
+th {
+    padding: 12px 14px;
+
+    text-align: left;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    color: #475569;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    white-space: nowrap;
+}
+
+td {
+    padding: 12px 14px;
+
+    color: #374151;
+
+    border-bottom: 1px solid #f1f5f9;
+
+    white-space: nowrap;
+}
+
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
 }
 
 
+/* =========================================================
+   EMPTY TABLE
+========================================================= */
 
-.card h3 {
+.empty-table {
+    min-height: 180px;
 
-    color:#64748b;
+    display: flex;
 
-    font-size:16px;
+    flex-direction: column;
 
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    color: #6b7280;
+}
+
+.table-icon {
+    font-size: 30px;
+
+    margin-bottom: 8px;
+
+    opacity: 0.7;
+}
+
+.empty-table h3 {
+    margin: 0;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    color: #4b5563;
+}
+
+.empty-table p {
+    margin-top: 5px;
+
+    font-size: 12px;
+
+    color: #9ca3af;
 }
 
 
-.card h2 {
+/* =========================================================
+   STATUS
+========================================================= */
 
-    color:#0f172a;
+.status {
+    display: inline-flex;
 
-    font-size:30px;
+    align-items: center;
 
-    margin:10px 0;
+    padding: 4px 9px;
 
+    border-radius: 999px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+.status.safe {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status.warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status.danger {
+    background: #fee2e2;
+    color: #991b1b;
 }
 
 
+/* =========================================================
+   MAP
+========================================================= */
 
-/* Bản đồ + biểu đồ */
+.map-card {
+    background: #ffffff;
 
-.content-grid {
+    border: 1px solid #e5e7eb;
 
-    display:grid;
+    border-radius: 12px;
 
-    grid-template-columns:2fr 1fr;
+    overflow: hidden;
 
-    gap:20px;
+    min-height: 400px;
 
-    margin-top:30px;
-
+    box-shadow: 0 2px 7px rgba(15, 23, 42, 0.04);
 }
 
+.map-header {
+    height: 58px;
 
+    padding: 0 18px;
 
-.box {
+    display: flex;
 
-    background:white;
+    align-items: center;
+    justify-content: space-between;
 
-    padding:20px;
-
-    border-radius:16px;
-
-    box-shadow:0 4px 12px rgba(0,0,0,0.08);
-
+    border-bottom: 1px solid #e5e7eb;
 }
 
+.map-header h3 {
+    font-size: 15px;
 
-.box h2 {
+    font-weight: 650;
 
-    color:#1a3a5c;
-
-    margin-bottom:15px;
-
+    color: #111827;
 }
 
+.map-container {
+    width: 100%;
 
+    height: 420px;
 
-/* Bản đồ Leaflet */
+    background: #e5e7eb;
+}
 
 #map {
-
-    height:500px;
-
-    width:100%;
-
-    border-radius:12px;
-
+    width: 100%;
+    height: 100%;
 }
 
 
+/* =========================================================
+   FILTER / BUTTON
+========================================================= */
 
-/* Biểu đồ */
+.filter-group {
+    display: flex;
 
-canvas {
+    align-items: center;
 
-    width:100%;
+    gap: 8px;
 
-    max-height:350px;
+    flex-wrap: wrap;
+}
 
+.filter-group label {
+    font-size: 12px;
+
+    color: #6b7280;
+}
+
+.filter-group select,
+.filter-select {
+    height: 36px;
+
+    padding: 0 10px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    color: #374151;
+
+    font-size: 12px;
+
+    outline: none;
+}
+
+.filter-group select:focus,
+.filter-select:focus {
+    border-color: #14b8a6;
 }
 
 
+/* Button */
 
-/* responsive */
-
-@media(max-width:1024px){
-
-    .dashboard-grid{
-
-        grid-template-columns:repeat(2,1fr);
-
-    }
-
-
-    .content-grid{
-
-        grid-template-columns:1fr;
-
-    }
-
-}
-
-
-@media(max-width:640px){
-
-    .dashboard-grid{
-
-        grid-template-columns:1fr;
-
-    }
-
-
-    .menu{
-
-        flex-direction:column;
-
-    }
-
-}
-/* =========================
-   LOGIN PAGE
-========================= */
-
-.login-container {
-
-    width: 400px;
-
-    margin: 100px auto;
-
-    background:white;
-
-    padding:40px;
-
-    border-radius:20px;
-
-    box-shadow:0 8px 30px rgba(0,0,0,0.1);
-
-}
-
-
-
-.login-container h2 {
-
-    text-align:center;
-
-    color:#1a3a5c;
-
-    margin-bottom:30px;
-
-}
-
-
-
-.form-group {
-
-    margin-bottom:20px;
-
-}
-
-
-
-.form-group label {
-
-    display:block;
-
-    margin-bottom:8px;
-
-    color:#334155;
-
-    font-weight:500;
-
-}
-
-
-
-.form-group input {
-
-    width:100%;
-
-    padding:12px 15px;
-
-    border:1px solid #cbd5e1;
-
-    border-radius:10px;
-
-    font-size:16px;
-
-}
-
-
-
-.form-group input:focus {
-
-    outline:none;
-
-    border-color:#2d6a4f;
-
-}
-
-
-
-.login-btn {
-
-    width:100%;
-
-    padding:12px;
-
-    border:none;
-
-    border-radius:10px;
-
-    background:#1a3a5c;
-
-    color:white;
-
-    font-size:16px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-}
-
-
-
-.login-btn:hover {
-
-    background:#2d6a4f;
-
-}
-.monitor-layout{
-    display:grid;
-    grid-template-columns:280px 1fr;
-    gap:20px;
-    margin-top:20px;
-}
-
-.filter-box{
-    background:white;
-    padding:20px;
-    border-radius:15px;
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
-}
-
-.filter-box select,
-.filter-box input{
-    width:100%;
-    padding:10px;
-    margin-bottom:15px;
-    border:1px solid #ddd;
-    border-radius:8px;
-}
-.full-width{
-    grid-column:1/-1;
-}
-
-.climate-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:15px;
-}
-
-.climate-table th{
-    background:#2563eb;
-    color:white;
-    padding:12px;
-    text-align:center;
-}
-
-.climate-table td{
-    border:1px solid #ddd;
-    padding:10px;
-    text-align:center;
-}
-
-.climate-table tr:nth-child(even){
-    background:#f8fafc;
-}
-
-.climate-table tr:hover{
-    background:#eaf4ff;
-}
-
-.badge{
-    padding:5px 12px;
-    border-radius:20px;
-    color:white;
-    font-size:13px;
-}
-
-.good{
-    background:#22c55e;
-}
-
-.moderate{
-    background:#f59e0b;
-}
-.map-controls .btn {
-    padding: 8px 16px;
-    border: 1px solid #2563eb;
-    background: #fff;
-    color: #2563eb;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.map-controls .btn:hover {
-    background: #2563eb;
-    color: #fff;
-}
-/* Định dạng nút bấm */
 .btn {
-    background: #1a3a5c;      /* Nền xanh */
-    color: white;             /* Chữ trắng */
-    border: none;             /* Không viền */
-    padding: 8px 18px;        /* Khoảng cách trong */
-    border-radius: 20px;      /* Bo góc */
-    cursor: pointer;          /* Con trỏ bàn tay */
-    font-size: 0.85rem;       /* Cỡ chữ */
-    transition: background 0.3s;
+    height: 36px;
+
+    padding: 0 13px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition: all 0.2s ease;
 }
 
-/* Hiệu ứng khi rê chuột */
-.btn:hover {
-    background: #2563eb;
-}
-/* Thanh menu */
-.navbar{
-    background:#1f4b63;
-    padding:15px 30px;
-    border-radius:20px;
-    margin:20px;
+.btn-primary {
+    background: #0f766e;
+
+    color: #ffffff;
 }
 
-/* Chứa logo và menu */
-.nav-container{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+.btn-primary:hover {
+    background: #115e59;
 }
 
-/* Logo */
-.nav-brand{
-    color:white;
-    font-size:32px;
-    font-weight:bold;
+.btn-secondary {
+    background: #f1f5f9;
+
+    color: #475569;
+
+    border: 1px solid #e2e8f0;
 }
 
-/* Menu */
-.nav-menu{
-    display:flex;
-    gap:30px;
-    list-style:none;
-    margin:0;
-    padding:0;
+.btn-secondary:hover {
+    background: #e2e8f0;
 }
 
-/* Từng mục */
-.nav-item{
-    list-style:none;
+
+/* =========================================================
+   ALERT
+========================================================= */
+
+.alert {
+    padding: 13px 15px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    margin-bottom: 15px;
 }
 
-/* Link */
-.nav-link{
-    color:white;
-    text-decoration:none;
-    font-size:20px;
-    font-weight:600;
-    transition:0.3s;
+.alert-warning {
+    background: #fffbeb;
+
+    border: 1px solid #fde68a;
+
+    color: #92400e;
 }
 
-.nav-link:hover{
-    color:#90caf9;
+.alert-danger {
+    background: #fef2f2;
+
+    border: 1px solid #fecaca;
+
+    color: #991b1b;
 }
 
-/* Trang đang chọn */
-.nav-link.active{
-    color:#ffd54f;
-}
-/* ===== NAVBAR ===== */
+.alert-success {
+    background: #f0fdf4;
 
-.navbar{
-    width:95%;
-    margin:20px auto;
-    padding:15px 30px;
-    background:linear-gradient(90deg,#174764,#2d6a87);
-    border-radius:20px;
-    box-shadow:0 8px 20px rgba(0,0,0,.15);
+    border: 1px solid #bbf7d0;
+
+    color: #166534;
 }
 
-.nav-container{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+
+/* =========================================================
+   GRID LAYOUT
+========================================================= */
+
+.two-column {
+    display: grid;
+
+    grid-template-columns: 1.5fr 1fr;
+
+    gap: 20px;
+
+    margin-bottom: 20px;
 }
 
-.nav-brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
+.three-column {
+    display: grid;
 
-    color:#fff;
-    font-size:26px;
-    font-weight:700;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 16px;
 }
 
-.nav-brand span{
-    font-size:42px;
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+.content::-webkit-scrollbar {
+    width: 7px;
 }
 
-.nav-menu{
-    display:flex;
-    align-items:center;
-    gap:18px;
-
-    list-style:none;
-    margin:0;
-    padding:0;
+.content::-webkit-scrollbar-track {
+    background: #f1f5f9;
 }
 
-.nav-link{
-    color:#fff;
-    text-decoration:none;
+.content::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
 
-    padding:10px 18px;
-
-    border-radius:12px;
-
-    font-size:18px;
-    font-weight:600;
-
-    transition:.3s;
+    border-radius: 10px;
 }
 
-.nav-link:hover{
-    background:rgba(255,255,255,.18);
+.content::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
 }
 
-.nav-link.active{
-    background:#ffc107;
-    color:#173b54;
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .sidebar {
+        width: 220px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .two-column {
+        grid-template-columns: 1fr;
+    }
 }
-<div class="nav-brand">
-    <span>🌍</span>
-    Climate Smart City
-</div>
+
+
+@media (max-width: 768px) {
+
+    body {
+        overflow: auto;
+    }
+
+    .webgis {
+        height: auto;
+
+        min-height: 100vh;
+    }
+
+    .sidebar {
+        width: 190px;
+    }
+
+    .header {
+        padding: 0 18px;
+    }
+
+    .content {
+        padding: 18px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .three-column {
+        grid-template-columns: 1fr;
+    }
+
+    .map-container {
+        height: 350px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .sidebar {
+        width: 64px;
+    }
+
+    .logo {
+        justify-content: center;
+
+        padding: 0;
+    }
+
+    .logo span {
+        display: none;
+    }
+
+    .sidebar nav a {
+        justify-content: center;
+
+        padding: 0;
+    }
+
+    .sidebar nav a span.text {
+        display: none;
+    }
+
+    .sidebar nav a i,
+    .sidebar nav a span.icon {
+        margin: 0;
+    }
+
+    .header-left h1 {
+        font-size: 17px;
+    }
+
+    .header-left p {
+        display: none;
+    }
+
+    .content {
+        padding: 14px;
+    }
+
+    .data-card {
+        padding: 15px;
+    }
+
+    .map-container {
+        height: 300px;
+    }
+}
+/* FIX LEAFLET TILE */
+
+.map-container {
+    position: relative;
+    flex: 1 1 auto;
+    width: calc(100vw - 235px);
+    height: 100vh;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+}
+
+#map {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.leaflet-container {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.leaflet-tile {
+    max-width: none !important;
+    max-height: none !important;
+}
+/* =====================================
+   TRANG CẢNH BÁO NGẬP
+===================================== */
+
+.warning-content {
+    flex: 1;
+    height: 100vh;
+    overflow-y: auto;
+    background: #f1f5f9;
+    padding: 28px 32px;
+}
+
+
+/* HEADER */
+
+.page-header {
+    margin-bottom: 25px;
+}
+
+.page-header h1 {
+    margin: 0 0 8px;
+    color: #082536;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.page-header p {
+    margin: 0;
+    color: #64748b;
+    font-size: 15px;
+}
+
+
+/* =====================================
+   CÁC THẺ TỔNG QUAN
+===================================== */
+
+.warning-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.warning-card {
+    min-height: 125px;
+    padding: 20px;
+
+    background: white;
+    border-radius: 14px;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+
+    border-left: 5px solid transparent;
+}
+
+.warning-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    font-size: 22px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.warning-label {
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+.warning-value {
+    color: #0f172a;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+/* TRẠNG THÁI AN TOÀN */
+
+.warning-card.safe {
+    border-left-color: #16a34a;
+}
+
+.warning-card.safe .warning-icon {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+
+/* KHU VỰC CẢNH BÁO */
+
+.warning-card.danger {
+    border-left-color: #ef4444;
+}
+
+.warning-card.danger .warning-icon {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+
+/* MỨC NGẬP */
+
+.warning-card.water {
+    border-left-color: #0284c7;
+}
+
+.warning-card.water .warning-icon {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+
+/* THỜI GIAN */
+
+.warning-card.time {
+    border-left-color: #7c3aed;
+}
+
+.warning-card.time .warning-icon {
+    background: #ede9fe;
+    color: #7c3aed;
+}
+
+
+/* =====================================
+   MỨC ĐỘ CẢNH BÁO
+===================================== */
+
+.warning-level-card {
+    background: white;
+    border-radius: 14px;
+    padding: 22px;
+
+    margin-bottom: 22px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #082536;
+
+    margin-bottom: 18px;
+}
+
+.warning-levels {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+}
+
+.level {
+    padding: 15px;
+
+    border-radius: 10px;
+
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+}
+
+.level-color {
+    width: 12px;
+    height: 12px;
+
+    border-radius: 50%;
+
+    margin-top: 4px;
+
+    flex-shrink: 0;
+}
+
+.level strong {
+    display: block;
+
+    font-size: 14px;
+
+    color: #1e293b;
+
+    margin-bottom: 5px;
+}
+
+.level p {
+    margin: 0;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    color: #64748b;
+}
+
+
+/* MÀU CÁC MỨC */
+
+.level-normal .level-color {
+    background: #22c55e;
+}
+
+.level-low .level-color {
+    background: #facc15;
+}
+
+.level-medium .level-color {
+    background: #f97316;
+}
+
+.level-high .level-color {
+    background: #ef4444;
+}
+
+.level-critical .level-color {
+    background: #991b1b;
+}
+
+
+/* =====================================
+   DANH SÁCH CẢNH BÁO
+===================================== */
+
+.data-card {
+    background: white;
+
+    border-radius: 14px;
+
+    padding: 22px;
+
+    margin-bottom: 20px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+
+    min-height: 250px;
+}
+
+.data-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+.data-card-header h2 {
+    margin: 0 0 5px;
+
+    color: #082536;
+
+    font-size: 18px;
+}
+
+.data-card-header p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+
+/* =====================================
+   TRẠNG THÁI CHƯA CÓ DỮ LIỆU
+===================================== */
+
+.warning-empty {
+    min-height: 180px;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    border: 1px dashed #cbd5e1;
+
+    border-radius: 12px;
+
+    background: #f8fafc;
+}
+
+.empty-icon {
+    font-size: 38px;
+
+    margin-bottom: 8px;
+}
+
+.warning-empty h3 {
+    margin: 0 0 6px;
+
+    color: #334155;
+
+    font-size: 17px;
+}
+
+.warning-empty p {
+    margin: 0;
+
+    max-width: 450px;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* =====================================
+   GHI CHÚ
+===================================== */
+
+.data-note {
+    background: #e0f2fe;
+
+    color: #075985;
+
+    border-left: 4px solid #0284c7;
+
+    border-radius: 8px;
+
+    padding: 14px 16px;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    margin-bottom: 20px;
+}
+
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media (max-width: 1100px) {
+
+    .warning-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .warning-levels {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .warning-content {
+        padding: 20px 15px;
+    }
+
+    .page-header h1 {
+        font-size: 22px;
+    }
+
+    .warning-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .warning-levels {
+        grid-template-columns: 1fr;
+    }
+}

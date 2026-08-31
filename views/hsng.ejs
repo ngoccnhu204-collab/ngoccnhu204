@@ -1,105 +1,413 @@
+<div class="nav-brand">
+    🌊 WebGIS Ngập lụt TP.HCM
+</div>
+<ul class="nav-menu">
+
+    <li class="nav-item">
+        <a href="/dashboard" class="nav-link">
+            🏠 Trang chủ
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a href="/map" class="nav-link">
+            🗺️ Bản đồ
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a href="/flood-data" class="nav-link active">
+            🌊 Dữ liệu ngập
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a href="/warning" class="nav-link">
+            ⚠️ Cảnh báo
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a href="/statistics" class="nav-link">
+            📊 Thống kê
+        </a>
+    </li>
+
+</ul>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hạ tầng xanh - Climate Smart City</title>
 
-    <link rel="stylesheet" href="/style.css">
+    <title>Dữ liệu ngập lụt</title>
+
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
 
-    <!-- DÁN NAVBAR Ở ĐÂY -->
-    <nav class="navbar">
-        <div class="nav-container">
+<div class="flood-container">
 
-            <div class="nav-brand">
-                🌍 Climate Smart City
+    <!-- ================= TIÊU ĐỀ ================= -->
+
+    <div class="flood-title">
+
+        <h1>🌧️ DỮ LIỆU NGẬP LỤT</h1>
+
+        <p>
+            Quản lý và tra cứu thông tin các điểm ngập tại TP. Hồ Chí Minh
+        </p>
+
+    </div>
+
+
+    <!-- ================= BỘ LỌC ================= -->
+
+    <div class="filter-card">
+
+        <div class="filter-title">
+            🔎 BỘ LỌC DỮ LIỆU
+        </div>
+
+
+        <div class="filter-body">
+
+            <!-- Mã điểm ngập -->
+
+            <div class="filter-item">
+
+                <label>Mã điểm ngập</label>
+
+                <select id="pointCode">
+                    <option value="">Tất cả điểm</option>
+                </select>
+
             </div>
 
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="/dashboard" class="nav-link">
-                        Dashboard
-                    </a>
-                </li>
 
-                <li class="nav-item">
-                    <a href="/climate" class="nav-link">
-                        Dữ liệu khí hậu
-                    </a>
-                </li>
+            <!-- Khu vực -->
 
-                <li class="nav-item">
-                    <a href="/hsng" class="nav-link active">
-                        Hạ tầng xanh
-                    </a>
-                </li>
+            <div class="filter-item">
 
-                <li class="nav-item">
-                    <a href="/logout" class="nav-link">
-                        Đăng xuất
-                    </a>
-                </li>
-            </ul>
+                <label>Khu vực</label>
+
+                <select id="area">
+                    <option value="">Tất cả khu vực</option>
+                </select>
+
+            </div>
+
+
+            <!-- Mức độ -->
+
+            <div class="filter-item">
+
+                <label>Mức độ ngập</label>
+
+                <select id="level">
+
+                    <option value="">Tất cả mức độ</option>
+
+                    <option value="nhe">
+                        Ngập nhẹ
+                    </option>
+
+                    <option value="vua">
+                        Ngập trung bình
+                    </option>
+
+                    <option value="nghiemtrong">
+                        Ngập nghiêm trọng
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Từ ngày -->
+
+            <div class="filter-item">
+
+                <label>Từ ngày</label>
+
+                <input
+                    type="date"
+                    id="fromDate"
+                >
+
+            </div>
+
+
+            <!-- Đến ngày -->
+
+            <div class="filter-item">
+
+                <label>Đến ngày</label>
+
+                <input
+                    type="date"
+                    id="toDate"
+                >
+
+            </div>
+
+
+            <!-- Nút -->
+
+            <div class="filter-buttons">
+
+                <button
+                    class="btn-filter"
+                    onclick="filterData()"
+                >
+                    🔎 Lọc dữ liệu
+                </button>
+
+                <button
+                    class="btn-reset"
+                    onclick="resetFilter()"
+                >
+                    ↻ Đặt lại
+                </button>
+
+            </div>
 
         </div>
-    </nav>
 
-    <!-- Nội dung trang -->
-    <div class="container">
+    </div>
 
-        <h1>🌳 Hạ tầng xanh</h1>
-<div class="card full-width">
 
-    <h3>🌳 Danh sách khu vực cây xanh</h3>
+    <!-- ================= THỐNG KÊ ================= -->
 
-    <table class="climate-table">
+    <div class="statistics">
 
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tên khu vực</th>
-                <th>Số cây</th>
-                <th>Diện tích</th>
-                <th>Loại cây</th>
-                <th>Tỷ lệ che phủ</th>
-                <th>Trạng thái</th>
-            </tr>
-        </thead>
+        <!-- Điểm ngập -->
 
-        <tbody>
+        <div class="stat-box">
 
-            <% data.forEach(item => { %>
+            <div class="stat-icon blue-icon">
+                🌊
+            </div>
 
-            <tr>
+            <div class="stat-content">
 
-                <td><%= item.id %></td>
+                <span>Điểm ngập</span>
 
-                <td><%= item.name %></td>
+                <strong>--</strong>
 
-                <td><%= item.trees %></td>
+            </div>
 
-                <td><%= item.area %></td>
+        </div>
 
-                <td><%= item.type %></td>
 
-                <td><%= item.cover %>%</td>
+        <!-- Độ sâu -->
 
-                <td>
-                    <span class="badge <%= item.status === 'Tốt' ? 'good' : 'moderate' %>">
-                        <%= item.status %>
-                    </span>
-                </td>
+        <div class="stat-box">
 
-            </tr>
+            <div class="stat-icon blue-icon">
+                📏
+            </div>
 
-            <% }); %>
+            <div class="stat-content">
 
-        </tbody>
+                <span>Độ sâu trung bình</span>
 
-    </table>
+                <strong>-- m</strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Ngập nghiêm trọng -->
+
+        <div class="stat-box">
+
+            <div class="stat-icon blue-icon">
+                ⚠️
+            </div>
+
+            <div class="stat-content">
+
+                <span>Ngập nghiêm trọng</span>
+
+                <strong>--</strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Cập nhật -->
+
+        <div class="stat-box">
+
+            <div class="stat-icon blue-icon">
+                🕘
+            </div>
+
+            <div class="stat-content">
+
+                <span>Cập nhật gần nhất</span>
+
+                <strong>--</strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= DANH SÁCH ================= -->
+
+    <div class="data-card">
+
+        <div class="data-header">
+
+            <div>
+
+                <h2>
+                    🌧️ Danh sách điểm ngập
+                </h2>
+
+                <p>
+                    Thông tin các điểm ngập được quản lý trong hệ thống
+                </p>
+
+            </div>
+
+
+            <button
+                class="btn-add"
+                onclick="addFloodPoint()"
+            >
+                ＋ Thêm điểm ngập
+            </button>
+
+        </div>
+
+
+        <!-- BẢNG -->
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>STT</th>
+
+                        <th>Mã điểm</th>
+
+                        <th>Khu vực</th>
+
+                        <th>Vị trí</th>
+
+                        <th>Độ sâu ngập</th>
+
+                        <th>Mức độ</th>
+
+                        <th>Thời gian</th>
+
+                        <th>Trạng thái</th>
+
+                        <th>Thao tác</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="floodTable">
+
+                    <!-- Chưa có dữ liệu -->
+
+                    <tr>
+
+                        <td
+                            colspan="9"
+                            class="empty-data"
+                        >
+
+                            <div class="empty-icon">
+                                🌧️
+                            </div>
+
+                            <strong>
+                                Chưa có dữ liệu
+                            </strong>
+
+                            <p>
+                                Hiện chưa có điểm ngập nào được cập nhật.
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
 
 </div>
-        
+
+
+<script>
+
+    // ==============================
+    // LỌC DỮ LIỆU
+    // ==============================
+
+    function filterData() {
+
+        alert(
+            "Chức năng lọc sẽ được kết nối khi có dữ liệu."
+        );
+
+    }
+
+
+    // ==============================
+    // ĐẶT LẠI
+    // ==============================
+
+    function resetFilter() {
+
+        document.getElementById("pointCode").value = "";
+
+        document.getElementById("area").value = "";
+
+        document.getElementById("level").value = "";
+
+        document.getElementById("fromDate").value = "";
+
+        document.getElementById("toDate").value = "";
+
+    }
+
+
+    // ==============================
+    // THÊM ĐIỂM NGẬP
+    // ==============================
+
+    function addFloodPoint() {
+
+        alert(
+            "Chức năng thêm điểm ngập sẽ được thực hiện sau."
+        );
+
+    }
+
+</script>
+
+</body>
+</html>
