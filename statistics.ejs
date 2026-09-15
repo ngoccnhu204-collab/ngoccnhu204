@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thống kê ngập lụt - WebGIS TP.HCM</title>
+<link rel="stylesheet" href="/css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f1f6f7;color:#075f68}
+.statistics-page{flex:1;min-width:0;margin:0;padding:28px 35px;min-height:100vh}
+h1,h2,p{margin-top:0}
+.statistics-header{margin-bottom:22px}
+.statistics-header h1{font-size:25px;margin-bottom:6px}
+.statistics-header p,.chart-description,.statistics-table-header span{color:#718287;font-size:13px}
+.statistics-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:22px}
+.statistics-stat,.chart-card,.statistics-table-card{background:white;border:1px solid #e0ebec;border-radius:12px;box-shadow:0 4px 15px #16494d0d}
+.statistics-stat{padding:17px;display:flex;align-items:center;gap:13px}
+.statistics-icon{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;font-size:20px}
+.total{background:#e4f1ff}.low{background:#e2f5ed}.medium{background:#fff1d7}.high{background:#ffe5e5}
+.statistics-stat span{display:block;color:#7b898d;font-size:11px;margin-bottom:3px}
+.statistics-stat strong{font-size:22px}
+.statistics-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;margin-bottom:20px}
+.chart-card{padding:20px}
+.chart-title{font-size:15px;font-weight:bold;margin-bottom:4px}
+.chart-description{font-size:11px;margin-bottom:15px}
+.chart-container{height:280px;position:relative}
+.statistics-table-card{overflow:hidden}
+.statistics-table-header{padding:20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e6eeee}
+.statistics-table-header h2{font-size:16px;margin:0}
+.statistics-table-wrapper{overflow-x:auto}
+.statistics-table{width:100%;min-width:800px;border-collapse:collapse}
+.statistics-table th{background:#edf7f6;color:#075f68;font-size:11px;text-align:left;padding:12px 14px}
+.statistics-table td{color:#5d7074;font-size:11px;padding:12px 14px;border-bottom:1px solid #edf1f1}
+.statistics-table tbody tr:hover{background:#f8fbfb}
+.stat-level{display:inline-block;padding:5px 10px;border-radius:20px;font-size:10px;font-weight:bold}
+.stat-low{background:#e2f5ed;color:#277c61}.stat-medium{background:#fff1d5;color:#9a6b18}.stat-high{background:#ffe3e3;color:#c44444}.stat-very-high{background:#ffd4d4;color:#922f2f}
+@media(max-width:1100px){.statistics-stats{grid-template-columns:repeat(2,1fr)}.statistics-grid{grid-template-columns:1fr}}
+@media(max-width:750px){.statistics-page{margin-left:0;padding:20px}.statistics-stats{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="webgis">
+<aside class="sidebar">
+<div class="logo"><div class="logo-text"><strong>Viện Phát triển Xã hội,</strong><strong>Môi trường và Nông nghiệp</strong></div></div>
+<nav class="sidebar-menu">
+<a href="/dashboard" class="menu-item"><span class="menu-icon">⌂</span><span>Trang chủ</span></a>
+<a href="/map" class="menu-item"><span class="menu-icon">🗺</span><span>Bản đồ</span></a>
+<a href="/climate" class="menu-item"><span class="menu-icon">🌊</span><span>Dữ liệu ngập</span></a>
+<a href="/warning" class="menu-item"><span class="menu-icon">⚠</span><span>Cảnh báo</span></a>
+<a href="/statistics" class="menu-item active"><span class="menu-icon">▥</span><span>Thống kê</span></a>
+</nav>
+<div class="sidebar-bottom">
+<a href="#"><span>ⓘ</span>Giới thiệu</a><a href="/"><span>↪</span>Đăng xuất</a>
+</div>
+</aside>
+<main class="statistics-page">
+<div class="statistics-header">
+<h1>Thống kê ngập lụt</h1>
+<p>Tổng hợp và trực quan hóa tình hình ngập lụt trên địa bàn Thành phố Hồ Chí Minh</p>
+</div>
+<div class="statistics-stats">
+<div class="statistics-stat"><div class="statistics-icon total">📍</div><div><span>Tổng số điểm ngập</span><strong>10</strong></div></div>
+<div class="statistics-stat"><div class="statistics-icon low">🟢</div><div><span>Ngập thấp</span><strong>2</strong></div></div>
+<div class="statistics-stat"><div class="statistics-icon medium">🟠</div><div><span>Ngập trung bình</span><strong>4</strong></div></div>
+<div class="statistics-stat"><div class="statistics-icon high">🔴</div><div><span>Ngập cao</span><strong>4</strong></div></div>
+</div>
+<div class="statistics-grid">
+<div class="chart-card">
+<div class="chart-title">Phân bố mức độ ngập</div>
+<div class="chart-description">Số lượng điểm ngập theo mức độ</div>
+<div class="chart-container"><canvas id="levelChart"></canvas></div>
+</div>
+<div class="chart-card">
+<div class="chart-title">Số điểm ngập theo khu vực</div>
+<div class="chart-description">Phân bố các điểm ngập theo khu vực</div>
+<div class="chart-container"><canvas id="districtChart"></canvas></div>
+</div>
+</div>
+<div class="statistics-table-card">
+<div class="statistics-table-header">
+<h2>Tổng hợp các điểm ngập</h2><span>Dữ liệu minh họa</span>
+</div>
+<div class="statistics-table-wrapper">
+<table class="statistics-table">
+<thead><tr><th>Mã điểm</th><th>Khu vực</th><th>Vị trí</th><th>Độ sâu ngập</th><th>Mức độ</th><th>Thời gian ngập</th></tr></thead>
+<tbody>
+<tr><td><b>NG01</b></td><td>Bình Thạnh</td><td>Nguyễn Hữu Cảnh</td><td>0.60 m</td><td><span class="stat-level stat-high">Cao</span></td><td>2.5 giờ</td></tr>
+<tr><td><b>NG02</b></td><td>Quận 7</td><td>Lê Văn Lương</td><td>0.55 m</td><td><span class="stat-level stat-high">Cao</span></td><td>3.0 giờ</td></tr>
+<tr><td><b>NG03</b></td><td>TP. Thủ Đức</td><td>Phạm Văn Đồng</td><td>0.35 m</td><td><span class="stat-level stat-medium">Trung bình</span></td><td>1.5 giờ</td></tr>
+<tr><td><b>NG04</b></td><td>TP. Thủ Đức</td><td>Quốc Hương</td><td>0.65 m</td><td><span class="stat-level stat-high">Cao</span></td><td>3.5 giờ</td></tr>
+<tr><td><b>NG05</b></td><td>Tân Bình</td><td>Âu Cơ</td><td>0.20 m</td><td><span class="stat-level stat-low">Thấp</span></td><td>1.0 giờ</td></tr>
+<tr><td><b>NG06</b></td><td>Bình Tân</td><td>Kinh Dương Vương</td><td>0.50 m</td><td><span class="stat-level stat-medium">Trung bình</span></td><td>2.0 giờ</td></tr>
+<tr><td><b>NG07</b></td><td>Bình Thạnh</td><td>Điện Biên Phủ</td><td>0.25 m</td><td><span class="stat-level stat-low">Thấp</span></td><td>1.0 giờ</td></tr>
+<tr><td><b>NG08</b></td><td>Quận 7</td><td>Huỳnh Tấn Phát</td><td>0.70 m</td><td><span class="stat-level stat-very-high">Rất cao</span></td><td>4.0 giờ</td></tr>
+<tr><td><b>NG09</b></td><td>TP. Thủ Đức</td><td>Võ Văn Ngân</td><td>0.40 m</td><td><span class="stat-level stat-medium">Trung bình</span></td><td>2.0 giờ</td></tr>
+<tr><td><b>NG10</b></td><td>Tân Bình</td><td>Lạc Long Quân</td><td>0.45 m</td><td><span class="stat-level stat-medium">Trung bình</span></td><td>2.0 giờ</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+</div>
+<script>
+new Chart(document.getElementById("levelChart"),{
+type:"bar",
+data:{labels:["Thấp","Trung bình","Cao","Rất cao"],datasets:[{label:"Số điểm",data:[2,4,3,1],borderWidth:1,borderRadius:5}]},
+options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1}}}}
+});
+new Chart(document.getElementById("districtChart"),{
+type:"doughnut",
+data:{labels:["Bình Thạnh","Quận 7","TP. Thủ Đức","Tân Bình","Bình Tân"],datasets:[{data:[2,2,3,2,1],borderWidth:1}]},
+options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:"bottom",labels:{font:{size:10}}}}}
+});
+</script>
+</body>
+</html>
